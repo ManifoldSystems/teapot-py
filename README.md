@@ -19,7 +19,7 @@ from teapot import Teapot
 
 tp = Teapot()
 
-for e in tp.exits(online_only=True):          # what you can route through
+for e in tp.exits(online_only=True):  # what you can route through
     print(e.name, e.public_ipv4, "(default)" if e.default else "")
 
 # Where to, with what payload, and out of which exit
@@ -27,11 +27,11 @@ r = tp.post(
     "https://api.example.com/v1/orders",
     json={"sku": "A-1", "qty": 2},
     headers={"Authorization": "Bearer …"},
-    via="phone-exit",                     # leave through the phone's SIM
+    via="phone-exit",  # leave through the phone's SIM
 )
 
-tp.ip(via="home-exit")                     # '198.51.100.20' (XL)
-tp.get("https://example.com")                 # agent's default exit
+tp.ip(via="home-exit")  # e.g. '198.51.100.20' (example IP)
+tp.get("https://example.com")  # agent's default exit
 
 # IP rotation: next exit with a different public IP each call
 for _ in range(3):
@@ -78,6 +78,11 @@ curl http://127.0.0.1:1080/_teapot/exits
 
 ```bash
 uv sync
-uv run pytest          # live tests run only when an agent listens on :1080
+uv run pytest -m 'not live'  # offline tests
+uv run pytest -m live        # optional: uses a running agent and real exit traffic
 uv run ruff check . && uv run ruff format .
 ```
+
+## License
+
+MIT — see [LICENSE](LICENSE).
