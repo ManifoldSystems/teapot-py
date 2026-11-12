@@ -7,10 +7,18 @@ over every exit with a different public IP. Built on [httpx](https://www.python-
 Needs the Teapot agent running on the same machine (`teapot service install`),
 which serves an HTTP proxy on `127.0.0.1:1080`.
 
+Distributed as source code only. Clone the client and build it locally; no
+prebuilt wheels or package-registry releases are provided.
+
 ```bash
-uv add "teapot-py @ git+https://github.com/ManifoldSystems/teapot-py"
-# or: pip install "git+https://github.com/ManifoldSystems/teapot-py"
+git clone https://github.com/ManifoldSystems/teapot-py.git
+cd teapot-py
+uv sync --locked
+uv build
 ```
+
+Run your scripts inside this checkout with `uv run python your_script.py`.
+`uv build` produces local artifacts in `dist/` for your own use.
 
 ## Use
 
